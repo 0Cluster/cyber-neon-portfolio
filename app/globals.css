@@ -2,36 +2,143 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+html {
+  overscroll-behavior-y: none;
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.wave {
+  -webkit-animation-duration: 2.1s;
+  animation-duration: 2.1s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: wave-animation;
+  animation-name: wave-animation;
+  display: inline-block;
+  -webkit-transform-origin: 70% 70%;
+  transform-origin: 70% 70%;
+}
+
+.glitch {
+  position: relative;
+  color: #00ffff;
+  font-family: "Orbitron", monospace;
+  letter-spacing: 2px;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #00ffff;
+  background: black;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.glitch::before {
+  animation: glitchTop 1s infinite linear alternate-reverse;
+  color: #ff00ff;
+}
+
+.glitch::after {
+  animation: glitchBottom 1.2s infinite linear alternate-reverse;
+  color: #00ffea;
+}
+
+@keyframes glitchTop {
+  0% {
+    clip: rect(0, 900px, 0, 0);
+  }
+  10% {
+    clip: rect(10px, 9999px, 50px, 0);
+  }
+  20% {
+    clip: rect(85px, 9999px, 90px, 0);
+  }
+  100% {
+    clip: rect(0, 900px, 0, 0);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@keyframes glitchBottom {
+  0% {
+    clip: rect(0, 900px, 0, 0);
+  }
+  15% {
+    clip: rect(65px, 9999px, 80px, 0);
+  }
+  25% {
+    clip: rect(10px, 9999px, 40px, 0);
+  }
+  100% {
+    clip: rect(0, 900px, 0, 0);
   }
 }
-.page {
-  text-align: center;
-  font-size: 48px;
+.glitch-wrapper {
+  position: relative;
+  filter: drop-shadow(0 0 25px rgba(120, 208, 226, 0.4));
+  z-index: 10;
+}
+
+.glitch-img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.glitch-layer {
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  animation: glitch-flicker 2s infinite;
+  animation-delay: 6s;
+}
+
+.glitch-layer-1 {
+  animation-delay: 0.15s;
+  filter: drop-shadow(0 0 5px #78d0e2);
+}
+
+.glitch-layer-2 {
+  animation-delay: 0.3s;
+  filter: drop-shadow(0 0 5px #ae4eff);
+}
+
+@keyframes glitch-flicker {
+  0% { clip-path: inset(0% 0% 0% 0%); transform: translate(0, 0); }
+  10% { clip-path: inset(15% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(40% 0 40% 0); transform: translate(2px, -1px); }
+  30% { clip-path: inset(65% 0 20% 0); transform: translate(-1px, 1px); }
+  40% { clip-path: inset(75% 0 10% 0); transform: translate(1px, -2px); }
+  50% { clip-path: inset(0% 0% 0% 0%); transform: translate(0, 0); }
+  100% { clip-path: inset(0% 0% 0% 0%); transform: translate(0, 0); }
+}
+/* Example usage in JSX/HTML */
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  } /* The following five values can be played with to make the waving more or less extreme */
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  } /* Reset for the last half to pause */
+  100% {
+    transform: rotate(0deg);
+  }
 }
