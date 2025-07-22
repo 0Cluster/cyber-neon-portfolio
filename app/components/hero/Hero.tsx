@@ -18,14 +18,18 @@ const pressStart = Press_Start_2P({
 const Hero = () => {
   const [visible, setVisible] = useState(false);
   const sentinelRef = useRef(null);
- const { avatarRef } = useAvatarVisibility();
 const { setIsAvatarFixed } = useAvatarVisibility();
   const { scrollYProgress } = useScroll();
+const heroRef = useRef(null);
 
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.75]);
-  const x = useTransform(scrollYProgress, [0, 0.2], [0, -10]);
-  const gap = useTransform(scrollYProgress, [0, 0.2], [10, -80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+const { scrollYProgress: heroScrollYProgress } = useScroll({
+  target: heroRef,
+  offset: ["start start", "end start"], // 👈 starts only when scroll starts pushing hero
+});
+const scale = useTransform(heroScrollYProgress, [0, 0.2], [1, 0.75]);
+const x = useTransform(heroScrollYProgress, [0, 0.2], [0, -10]);
+const gap = useTransform(heroScrollYProgress, [0, 0.2], [10, -80]);
+const opacity = useTransform(heroScrollYProgress, [0, 0.2], [1, 0]);
 
 
   const icons = [FaGithub, FaLinkedin, FaXTwitter];
@@ -54,7 +58,7 @@ const { setIsAvatarFixed } = useAvatarVisibility();
   }, []);
 
   return (
-    <div className="h-[100vh] w-full relative">
+    <div ref ={heroRef} className="h-[100vh] w-full relative">
       {/* Sentinel div for visibility trigger */}
       <div
         ref={sentinelRef}

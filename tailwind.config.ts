@@ -15,13 +15,14 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: "class",
-  theme: {
-    extend: {
+  theme: { extend: {
+ colors: {
+    customBlue: 'rgba(120,208,226,1)',
+  },
       dropShadow: {
         glow: "0 0 6px #78d0e2, 0 0 12px #78d0e2",
       },
-    },
-  },
+    },},
   plugins: [
     addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
