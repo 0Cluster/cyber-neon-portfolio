@@ -20,15 +20,18 @@
     "motion": "^12.23.6",
     "next": "^15.4.1",
     "nextjs-simple-typewriter": "^5.2.2",
+    "particles-bg": "^2.5.5",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.5.0",
     "react-intersection-observer": "^9.16.0",
     "react-simple-typewriter": "^5.0.1",
+    "react-tsparticles": "^2.12.2",
     "react-typewriter-effect": "^1.1.0",
     "sass": "^1.89.2",
     "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^1.0.0",
+    "tsparticles": "^3.8.1",
     "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
