@@ -7,6 +7,7 @@ import { AvatarVisibilityProvider } from "./hooks/useAvatarVisibility";
 import Skills from "./components/skills/skills";
 import BinaryRain from "./components/skills/BinaryRain";
 import  Projects from "./components/Projects/projects";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation"; 
 export default function Home() {
   return (
     <main className="bg-black dark">
