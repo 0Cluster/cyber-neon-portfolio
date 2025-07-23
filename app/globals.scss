@@ -1,0 +1,83 @@
+$background: transparent;
+$foreground: white;
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@700&display=swap');
+@import "~bourbon/core/bourbon"; // for Bourbon 5.x
+
+@mixin user-select($val) {
+  -webkit-user-select: $val;
+     -moz-user-select: $val;
+      -ms-user-select: $val;
+          user-select: $val;
+}
+@mixin gitchText($offset, $text) {
+  content: $text;
+  position: absolute;
+  left: $offset;
+  right:$offset;
+  clip: rect(0, 900px, 0, 0); 
+  background-color: $background;
+color:#78d0e2;
+  animation: glitch 6s infinite;
+  animation-delay: 4s;
+}
+
+
+.first {
+  margin-right: 20px;
+}
+
+.second{
+  color: $background;
+  background-color: $background;
+  animation: fadeWhite 4s forwards;
+  animation-delay: 2s;
+  position: relative;
+  &:after {
+    @include gitchText(0px, 'VINAY');
+  }
+  &:before {
+    @include gitchText(0px, 'VINAY');
+  }
+}
+
+@keyframes fadeWhite {
+  100% { color:rgba(255, 255, 255, 1); }
+}
+
+@keyframes glitch {
+  $steps: 20;
+
+  // Forward glitch: 0% to 25%
+  @for $i from 0 through $steps {
+    #{percentage($i * (0.25 / $steps))} {
+      clip: rect(0, #{ $i * 15 }px, 100px, 0);
+    }
+  }
+
+  // Pause at 25% to 50%
+  25%,
+  30%,
+  35%,
+  40%,
+  45%,
+  50% {
+    clip: rect(0, #{ $steps * 15 }px, 100px, 0);
+  }
+
+  // Reverse glitch: 50% to 75%
+  @for $i from 0 through $steps {
+    #{percentage(0.5 + $i * (0.25 / $steps))} {
+      clip: rect(0, #{ ($steps - $i) * 15 }px, 100px, 0);
+    }
+  }
+
+  // Final freeze at 75% to 100%
+  75%,
+  80%,
+  85%,
+  90%,
+  95%,
+  100% {
+    clip: rect(0, 0px, 100px, 0);
+  }
+}
